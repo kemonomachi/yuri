@@ -37,8 +37,8 @@ used to manipulate the query string. It also implements Access, Enumerable
 and Collectable, as well as String.Chars and List.Chars.
 
 Other parts of the URI can be accessed using get_* and set_* functions, e.g.
-get_port/2, set_path/2. See the Elixir URI module docs[1] for a complete
-list of URI components. The query can not be accessed in this way.
+get_port/2, set_path/2. See the Elixir URI module docs[1] for a complete list
+of URI components. The query string can not be accessed in this way.
 
 
 Licence
