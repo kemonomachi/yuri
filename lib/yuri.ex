@@ -94,7 +94,13 @@ defmodule YURI do
 
   defimpl String.Chars, for: YURI do
     def to_string(yuri) do
-      Kernel.to_string %{yuri.uri | query: URI.encode_query(yuri.query)}
+      query = if Enum.empty?(yuri.query) do
+        nil
+      else
+        URI.encode_query(yuri.query)
+      end
+
+      Kernel.to_string %{yuri.uri | query: query}
     end
   end
 
