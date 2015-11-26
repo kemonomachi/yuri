@@ -3,7 +3,7 @@ defmodule YURI do
   Wrapper around the standard Elixir URI module to simplify URI manipulation.
 
   Provides Dict-like access to the query string and functions for accessing
-  all other pats of the URI.
+  all other parts of the URI.
   """
 
   use Dict
