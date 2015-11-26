@@ -17,5 +17,21 @@ defmodule YURITest do
     assert Map.delete(yuri, :query) == Map.delete(uri, :query)
     assert URI.decode_query(yuri.query) == URI.decode_query(uri.query)
   end
+
+  @url_parts [:authority, :fragment, :host, :path, :port, :scheme, :userinfo]
+
+  Enum.each @url_parts, fn(part) ->
+    test "get #{part}", %{uri: uri, uri_string: uri_string} do
+      yuri = YURI.parse uri_string
+
+      assert YURI.unquote(:"get_#{part}")(yuri) == uri.unquote(part)
+    end
+
+    test "set #{part}", %{uri_string: uri_string} do
+      yuri = YURI.parse(uri_string) |> YURI.unquote(:"set_#{part}")(:test)
+
+      assert YURI.unquote(:"get_#{part}")(yuri) == :test
+    end
+  end
 end
 
