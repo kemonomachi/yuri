@@ -68,18 +68,6 @@ defmodule YURI do
   end
 
   ### Protocol implementations ###
-  defimpl Access, for: YURI do
-    def get(yuri, param) do
-      yuri.query[param]
-    end
-
-    def get_and_update(yuri, param, fun) do
-      {get, query} = Access.get_and_update yuri.query, param, fun
-
-      {get, %{yuri | query: query}}
-    end
-  end
-
   defimpl Enumerable, for: YURI do
     def reduce(yuri, acc, fun) do
       Enumerable.reduce yuri.query, acc, fun
