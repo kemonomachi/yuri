@@ -38,6 +38,14 @@ defmodule YURI do
     end
   end
 
+  def to_uri(yuri) do
+    if Enum.empty? yuri.query do
+      %{yuri.uri | query: nil}
+    else
+      %{yuri.uri | query: URI.encode_query(yuri.query)}
+    end
+  end
+
   ### Callbacks for Dict behaviour ###
   def delete(yuri, param) do
     %{yuri | query: Dict.delete(yuri.query, param)}
