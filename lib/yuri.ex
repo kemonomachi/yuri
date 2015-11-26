@@ -22,9 +22,7 @@ defmodule YURI do
   def parse(s, query) do
     uri = URI.parse s
 
-    if uri.query do 
-      query = uri.query |> URI.decode_query |> Dict.merge(query)
-    end
+    query = (uri.query || "") |> URI.decode_query |> Dict.merge(query)
 
     %YURI{uri: %{uri | query: nil}, query: query}
   end
