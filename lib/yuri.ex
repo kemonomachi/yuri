@@ -12,10 +12,13 @@ defmodule YURI do
 
   @type t :: %__MODULE__{}
 
+  @spec new() :: t
   def new(), do: %__MODULE__{}
 
+  @spec parse(String.t | URI.t) :: t
   def parse(s), do: parse(s, %{})
 
+  @spec parse(String.t | URI.t, Dict.t) :: t
   def parse(s, query) do
     uri = URI.parse s
 
@@ -29,15 +32,18 @@ defmodule YURI do
   url_parts = [:authority, :fragment, :host, :path, :port, :scheme, :userinfo]
 
   Enum.each url_parts, fn(part) ->
+    @spec unquote(:"set_#{part}")(t, term) :: t
     def unquote(:"set_#{part}")(yuri, val) do
       %{yuri | uri: %{yuri.uri | unquote(part) => val}}
     end
 
+    @spec unquote(:"get_#{part}")(t) :: term
     def unquote(:"get_#{part}")(yuri) do
       Map.get yuri.uri, unquote(part)
     end
   end
 
+  @spec to_uri(t) :: URI.t
   def to_uri(yuri) do
     if Enum.empty? yuri.query do
       %{yuri.uri | query: nil}
