@@ -1,14 +1,21 @@
 defmodule YURI do
   @moduledoc """
-  Wrapper around the standard Elixir URI module to simplify URI manipulation.
+  Simple struct for URI representation.
 
-  Provides Dict-like access to the query string and functions for accessing
-  all other parts of the URI.
+  Similar to the standard lib `URI` struct, but provides Dict-like access
+  to the query string.
   """
 
   use Dict
 
-  defstruct uri: %URI{}, query: %{}
+  defstruct authority: nil,
+            scheme: nil,
+            userinfo: nil,
+            host: nil,
+            port: nil,
+            path: nil,
+            fragment: nil,
+            query: %{}
 
   @type t :: %__MODULE__{}
 
@@ -29,21 +36,7 @@ defmodule YURI do
 
     query = (uri.query || "") |> URI.decode_query |> Dict.merge(query)
 
-    %YURI{uri: %{uri | query: nil}, query: query}
-  end
-
-  url_parts = [:authority, :fragment, :host, :path, :port, :scheme, :userinfo]
-
-  Enum.each url_parts, fn(part) ->
-    @spec unquote(:"set_#{part}")(t, term) :: t
-    def unquote(:"set_#{part}")(yuri, val) do
-      %{yuri | uri: %{yuri.uri | unquote(part) => val}}
-    end
-
-    @spec unquote(:"get_#{part}")(t) :: term
-    def unquote(:"get_#{part}")(yuri) do
-      Map.get yuri.uri, unquote(part)
-    end
+    %{uri | __struct__: __MODULE__, query: query}
   end
 
   @doc """
@@ -51,11 +44,13 @@ defmodule YURI do
   """
   @spec to_uri(t) :: URI.t
   def to_uri(yuri) do
-    if Enum.empty? yuri.query do
-      %{yuri.uri | query: nil}
+    query = if Enum.empty? yuri.query do
+      nil
     else
-      %{yuri.uri | query: URI.encode_query(yuri.query)}
+      URI.encode_query yuri.query
     end
+
+    %{yuri | __struct__: URI, query: query}
   end
 
   ### Callbacks for Dict behaviour ###
@@ -108,13 +103,13 @@ defmodule YURI do
         URI.encode_query(yuri.query)
       end
 
-      Kernel.to_string %{yuri.uri | query: query}
+      Kernel.to_string %{yuri | __struct__: URI, query: query}
     end
   end
 
   defimpl List.Chars, for: YURI do
     def to_char_list(yuri) do
-      Kernel.to_char_list to_string %{yuri.uri | query: URI.encode_query(yuri.query)}
+      Kernel.to_char_list to_string(yuri)
     end
   end
 end
