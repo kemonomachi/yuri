@@ -12,15 +12,23 @@ defmodule YURI do
 
   @type t :: %__MODULE__{}
 
+  @doc """
+  Create a new, empty YURI struct.
+  """
   @spec new() :: t
   def new(), do: %__MODULE__{}
 
   @spec parse(String.t | URI.t) :: t
   def parse(s), do: parse(s, %{})
 
+  @doc """
+  Create a `YURI` struct from a URI `String` or a standard lib `URI` struct, and a
+  dict of additional/default query parameters. Query parameters in the parsed
+  URI will take precedence.
+  """
   @spec parse(String.t | URI.t, Dict.t) :: t
-  def parse(s, query) do
-    uri = URI.parse s
+  def parse(uri, query) do
+    uri = URI.parse uri
 
     query = (uri.query || "") |> URI.decode_query |> Dict.merge(query)
 
@@ -41,6 +49,9 @@ defmodule YURI do
     end
   end
 
+  @doc """
+  Convert a `YURI` struct to a standard lib `URI` struct.
+  """
   @spec to_uri(t) :: URI.t
   def to_uri(yuri) do
     if Enum.empty? yuri.query do
