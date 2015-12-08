@@ -7,7 +7,8 @@ defmodule YURI.Mixfile do
      elixir: "~> 1.0",
      deps: deps,
      name: "YURI",
-     source_url: "https://github.com/kemonomachi/yuri"]
+     source_url: "https://github.com/kemonomachi/yuri",
+     docs: [extras: ["README.md": [path: "README.md", title: "README"]]]]
   end
 
   defp deps do
