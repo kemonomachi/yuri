@@ -8,6 +8,24 @@ to the query string.
 
 ##Usage
 
+Add YURI to your `mix.exs` dependencies:
+
+```elixir
+def deps do
+  [{:yuri, "~> 1.0.0"}]
+end
+```
+
+Download and compile:
+
+```sh-session
+$ mix deps.get
+
+$ mix deps.compile
+```
+
+Begin URI manipulation:
+
 ```elixir
 uri = YURI.parse "http://www.example.com/example?a=1"
 
