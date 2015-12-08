@@ -6,6 +6,8 @@ defmodule YURI do
   to the query string.
   """
 
+  @behaviour Dict
+
   use Dict
 
   defstruct authority: nil,
