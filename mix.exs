@@ -3,7 +3,7 @@ defmodule YURI.Mixfile do
 
   def project do
     [app: :yuri,
-     description: "Simple struct for URI representation.",
+     description: "Simple struct for representing URIs.",
      version: "1.0.0",
      elixir: "~> 1.0",
      deps: deps,

@@ -1,7 +1,7 @@
 YURI
 ====
 
-Simple struct for URI representation.
+Simple struct for representing URIs.
 
 Similar to the standard lib `URI` struct, but provides Dict-like acces
 to the query string.
