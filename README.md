@@ -41,7 +41,7 @@ Enumerable, Collectable, String.Chars and List.Chars protocols.
 Other parts of the URI can be accessed using standard struct syntax.
 
 
-##Licence
+##License
 
 Copyright © 2015 Ookami &lt;<ookamikenrou@gmail.com>&gt;
 
