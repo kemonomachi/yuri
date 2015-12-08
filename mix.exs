@@ -8,7 +8,8 @@ defmodule YURI.Mixfile do
      deps: deps,
      name: "YURI",
      source_url: "https://github.com/kemonomachi/yuri",
-     docs: [extras: ["README.md": [path: "README.md", title: "README"]]]]
+     docs: [extras: ["README.md": [path: "README", title: "README"]],
+            main: "README"]
   end
 
   defp deps do
