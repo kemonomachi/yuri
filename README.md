@@ -6,7 +6,7 @@ Simple struct for representing URIs.
 Similar to the standard lib `URI` struct, but provides Dict-like acces
 to the query string.
 
-##Usage
+## Usage
 
 Add YURI to your `mix.exs` dependencies:
 
@@ -59,7 +59,7 @@ Enumerable, Collectable, String.Chars and List.Chars protocols.
 Other parts of the URI can be accessed using standard struct syntax.
 
 
-##License
+## License
 
 Copyright © 2015 Ookami &lt;<ookamikenrou@gmail.com>&gt;
 
